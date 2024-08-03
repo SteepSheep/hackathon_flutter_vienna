@@ -53,6 +53,7 @@ sealed class GameEvent {
       };
 }
 
+@Deprecated('Join via submit artist instead')
 class Join extends GameEvent {
   const Join({required super.name}) : super(type: EventType.join);
 }

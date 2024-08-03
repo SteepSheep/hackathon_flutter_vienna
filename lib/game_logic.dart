@@ -16,6 +16,7 @@ class GameLogic extends ValueNotifier<GameState> {
   Future<GameState> addEvent(GameEvent event) async {
     if (client case final c?) {
       final state = await c.sendEvent(event);
+      print('received state:\n$state');
       if (state != null) {
         value = state;
         return state;
@@ -28,14 +29,24 @@ class GameLogic extends ValueNotifier<GameState> {
         case StartGame():
           newState = value.copyWith(phase: GamePhase.playing);
         case Join(name: final name):
-          newState = value.copyWith(players: List.of(value.players)..add(name));
+          newState = value.copyWith(
+            players: List.of(value.players)..add(name),
+          );
         case Answer(name: final name, answer: final answer):
           newState = value.copyWith(
-              answers: Map.of(value.answers)..addAll({name: answer}),
+              answers: Map.of(value.answers)
+                ..addAll(
+                  {name: answer},
+                ),
               timestamps: Map.of(value.timestamps)
-                ..addAll({name: DateTime.now().millisecondsSinceEpoch}));
+                ..addAll({
+                  name: DateTime.now().millisecondsSinceEpoch,
+                }));
         case SubmitArtist(name: final name, artist: final artist):
-          newState = value.copyWith(questions: [const QuestionData.fake()]);
+          newState = value.copyWith(
+            players: List.of(value.players)..add(name),
+            questions: [const QuestionData.fake()],
+          );
       }
 
       value = newState;
