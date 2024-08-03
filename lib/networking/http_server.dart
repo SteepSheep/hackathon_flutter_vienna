@@ -6,7 +6,7 @@ import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 
 Future<void> startServer() async {
-  final httpServer = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
+  final httpServer = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
   print('Started server on ${httpServer.address}, port ${httpServer.port}');
 
   await for (final request in httpServer) {

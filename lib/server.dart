@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
 import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
+import 'package:hackathon_flutter_vienna/networking/http_server.dart';
 
 const gameName = 'THE game!';
 
@@ -14,6 +15,7 @@ final gameService = BonsoirService(
 );
 
 void main() {
+  startServer();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
