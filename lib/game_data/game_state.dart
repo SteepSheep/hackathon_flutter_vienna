@@ -11,6 +11,9 @@ class GameState extends Equatable {
     this.questions = const [],
   });
 
+  factory GameState.fromJson(Map<String, dynamic> json) =>
+      throw UnimplementedError();
+
   final List<String> players;
   final Map<String, int> answers;
   final Map<String, double> durations;
@@ -18,5 +21,6 @@ class GameState extends Equatable {
   final List<QuestionData> questions;
 
   @override
-  List<Object?> get props => [players, answers, durations, currentQuestionIndex, questions];
+  List<Object?> get props =>
+      [players, answers, durations, currentQuestionIndex, questions];
 }
