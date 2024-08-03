@@ -5,6 +5,8 @@ import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
 import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 import 'package:hackathon_flutter_vienna/networking/http_server.dart';
+import 'package:hackathon_flutter_vienna/yt_service.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 const gameName = 'THE game!';
 
@@ -63,21 +65,18 @@ class GameServerPageState extends State<GameServerPage> {
       }
     }
 
+    print(oldWidget.gameState.toJson());
+    print(widget.gameState.toJson());
     if (widget.gameState.questions.isNotEmpty) {
       final song = widget
           .gameState.questions[widget.gameState.currentQuestionIndex].songUrl;
       if (oldWidget.gameState.questions.isEmpty ||
-          oldWidget
-                  .gameState
-                  .questions[oldWidget.gameState.currentQuestionIndex]
-                  .songUrl !=
-              song) {
-        if (widget.gameState.phase == GamePhase.playing) {
-          _playSong(
-              song,
-              widget.gameState.questions[widget.gameState.currentQuestionIndex]
-                  .songPositionSeconds);
-        }
+          oldWidget.gameState.currentQuestionIndex !=
+              widget.gameState.currentQuestionIndex) {
+        _playSong(
+            song,
+            widget.gameState.questions[widget.gameState.currentQuestionIndex]
+                .songPositionSeconds);
       }
     }
   }
@@ -103,8 +102,13 @@ class GameServerPageState extends State<GameServerPage> {
   }
 
   void _playSong(String uri, int positionSeconds) async {
+    final yt = YoutubeExplode();
+    const videoId = 'W8tbQgXyn1c';
+    final manifest = await yt.videos.streamsClient.getManifest(videoId);
+    final fakeUri = manifest.audioOnly.first.url.toString();
+    print(fakeUri);
     await player.seek(Duration(seconds: positionSeconds));
-    await player.play(UrlSource(uri));
+    await player.play(UrlSource(fakeUri));
   }
 
   String _formatDuration(Duration? d) {
