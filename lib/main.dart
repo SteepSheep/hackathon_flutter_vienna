@@ -8,7 +8,6 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
-  
 
 const gameName = 'THE game!';
 final gameService = BonsoirService(
@@ -99,11 +98,12 @@ class BonsoirPageState extends State<BonsoirPage> {
     });
     await _discovery.start();
   }
-  
-void checkYt() async {
-	final player = AudioPlayer();
+
+  void checkYt() async {
+    final player = AudioPlayer();
     final yt = YoutubeExplode();
-    var video = await yt.videos.get('https://www.youtube.com/watch?v=4NRXx6U8ABQ&pp=ygUKdGhlIHdlZWtuZA%3D%3D');
+    var video = await yt.videos.get(
+        'https://www.youtube.com/watch?v=4NRXx6U8ABQ&pp=ygUKdGhlIHdlZWtuZA%3D%3D');
 
     final videoId = video.id.value;
     setState(() {});
@@ -135,5 +135,4 @@ void checkYt() async {
       ],
     );
   }
-
 }
