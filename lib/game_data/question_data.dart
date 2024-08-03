@@ -24,6 +24,7 @@ class QuestionData extends Equatable {
   QuestionData.fromJson(Map<String, dynamic> json)
       : this(
           songUrl: json['songUrl'],
+          songPositionSeconds: json['songPositionSeconds'],
           correctAnswer: json['correctAnswer'],
           answers: List.from(json['answers']),
         );
