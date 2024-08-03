@@ -10,7 +10,9 @@ class GameLogic extends ValueNotifier<GameState> {
 
   GameState addEvent(GameEvent event) {
     switch (event) {
-      case _:
+      case StartGame():
+      case Join():
+      case SubmitArtist():
         throw UnimplementedError();
     }
   }
