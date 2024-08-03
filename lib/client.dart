@@ -4,6 +4,8 @@ import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
+import 'package:hackathon_flutter_vienna/screens/choose_artist_screen.dart';
+import 'package:hackathon_flutter_vienna/screens/song_question_screen.dart';
 import 'package:hackathon_flutter_vienna/server.dart';
 
 void main() {
@@ -11,7 +13,11 @@ void main() {
   runApp(Scaffold(
     body: ValueListenableBuilder(
       valueListenable: gameLogic,
-      builder: (context, state, _) => GameClientPage(gameState: state),
+      builder: (context, state, _) => SafeArea(
+        child: GameClientPage(
+          gameState: state,
+        ),
+      ),
     ),
   ));
 }
@@ -66,6 +72,20 @@ class GameClientPageState extends State<GameClientPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
+    if (gameLogic.client == null) {
+      return const Center(
+        child: Text('Looking for server...'),
+      );
+    }
+    return ValueListenableBuilder(
+      valueListenable: gameLogic,
+      builder: (context, state, _) {
+        if (state.phase == GamePhase.playing) {
+          return const SongQuestionScreen();
+        } else {
+          return const ChooseArtistScreen();
+        }
+      },
+    );
   }
 }
