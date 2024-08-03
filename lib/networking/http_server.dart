@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:hackathon_flutter_vienna/networking/event_handler.dart';
-import 'package:hackathon_flutter_vienna/networking/network_event.dart';
+import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
 
 Future<void> startServer() async {
   final httpServer = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
