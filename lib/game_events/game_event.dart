@@ -9,9 +9,13 @@ enum EventType {
 
 @immutable
 sealed class GameEvent {
-  const GameEvent({required this.type});
+  const GameEvent({
+    required this.type,
+    required this.name,
+  });
 
   final EventType type;
+  final String name;
 
   factory GameEvent.fromJson(Map<String, dynamic> json) {
     switch (json) {
@@ -19,68 +23,64 @@ sealed class GameEvent {
           'type': EventType.join,
           'name': String name,
         }:
-        return Join(name);
+        return Join(name: name);
       case {
           'type': EventType.sendArtist,
+          'name': String name,
           'artist': String artist,
         }:
-        return SubmitArtist(artist);
+        return SubmitArtist(name: name, artist: artist);
       case {
           'type': EventType.start,
+          'name': String name,
         }:
-        return const StartGame();
+        return StartGame(name: name);
       case {
           'type': EventType.sendAnswer,
+          'name': String name,
           'answer': int answer,
         }:
-        return Answer(answer);
+        return Answer(name: name, answer: answer);
       case _:
         throw ArgumentError('Not a valid $GameEvent: $json');
     }
   }
 
-  Map<String, dynamic> toJson();
-}
-
-class Join extends GameEvent {
-  const Join(this.name) : super(type: EventType.join);
-
-  final String name;
-
-  @override
+  @mustCallSuper
   Map<String, dynamic> toJson() => {
         'type': type.index,
         'name': name,
       };
 }
 
-class StartGame extends GameEvent {
-  const StartGame() : super(type: EventType.start);
+class Join extends GameEvent {
+  const Join({required super.name}) : super(type: EventType.join);
+}
 
-  @override
-  Map<String, dynamic> toJson() => {'type': type.index};
+class StartGame extends GameEvent {
+  const StartGame({required super.name}) : super(type: EventType.start);
 }
 
 class SubmitArtist extends GameEvent {
-  const SubmitArtist(this.artist) : super(type: EventType.sendArtist);
+  const SubmitArtist({
+    required super.name,
+    required this.artist,
+  }) : super(type: EventType.sendArtist);
 
   final String artist;
 
   @override
-  Map<String, dynamic> toJson() => {
-        'type': type.index,
-        'artist': artist,
-      };
+  Map<String, dynamic> toJson() => super.toJson()..addAll({'artist': artist});
 }
 
 class Answer extends GameEvent {
-  const Answer(this.answer) : super(type: EventType.sendAnswer);
+  const Answer({
+    required super.name,
+    required this.answer,
+  }) : super(type: EventType.sendAnswer);
 
   final int answer;
 
   @override
-  Map<String, dynamic> toJson() => {
-        'type': type.index,
-        'answer': answer,
-      };
+  Map<String, dynamic> toJson() => super.toJson()..addAll({'answer': answer});
 }
