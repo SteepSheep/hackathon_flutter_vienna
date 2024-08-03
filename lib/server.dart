@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
 

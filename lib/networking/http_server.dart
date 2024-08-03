@@ -23,7 +23,7 @@ Future<void> startServer() async {
       final decoded = json.decode(jsonString, reviver: _eventTypeReviver);
       final event = GameEvent.fromJson(decoded);
 
-      final newState = gameLogic.addEvent(event);
+      final newState = await gameLogic.addEvent(event);
       request.response.write(json.encode(newState));
       await request.response.flush();
     } finally {
