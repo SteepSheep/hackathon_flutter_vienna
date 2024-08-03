@@ -53,7 +53,7 @@ class BonsoirPageState extends State<BonsoirPage> {
   @override
   void initState() {
     super.initState();
-    _startDiscovery;
+    _startDiscovery();
   }
 
   void _startBroadcasting() async {
