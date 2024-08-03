@@ -72,6 +72,7 @@ class BonsoirPageState extends State<BonsoirPage> {
   }
 
   void _startDiscovery() async {
+    await _discovery.ready;
     _discoverySub?.cancel();
     _discoverySub = _discovery.eventStream!.listen((event) {
       switch (event.type) {
