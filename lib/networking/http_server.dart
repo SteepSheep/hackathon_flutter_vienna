@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:hackathon_flutter_vienna/networking/event_handler.dart';
 import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
+import 'package:hackathon_flutter_vienna/networking/game_state.dart';
 
 Future<void> startServer() async {
   final httpServer = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
@@ -23,7 +23,7 @@ Future<void> startServer() async {
       final decoded = json.decode(jsonString);
       final event = NetworkEvent.fromJson(decoded);
 
-      final eventResult = EventHandler.handle(event);
+      final eventResult = gameState.addEvent(event);
       request.response.write(json.encode(eventResult));
       await request.response.flush();
     } finally {
