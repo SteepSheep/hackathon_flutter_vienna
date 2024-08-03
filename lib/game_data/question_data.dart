@@ -17,7 +17,7 @@ class QuestionData extends Equatable {
 
   final String songUrl;
   final int songPositionSeconds;
-  final String correctAnswer;
+  final int correctAnswer;
   final List<String> answers;
 
   @override
