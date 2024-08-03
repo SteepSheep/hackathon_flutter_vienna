@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
 import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 import 'package:hackathon_flutter_vienna/screens/widgets/answer_widget.dart';
 
 class SongQuestionScreen extends StatefulWidget {
-  final QuestionData questionData;
-  const SongQuestionScreen({super.key, required this.questionData});
+  const SongQuestionScreen({super.key});
 
   @override
   State<SongQuestionScreen> createState() => _SongQuestionScreenState();
