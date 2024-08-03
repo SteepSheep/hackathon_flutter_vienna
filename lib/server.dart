@@ -96,13 +96,20 @@ class GameServerPageState extends State<GameServerPage> {
     return '${d.inSeconds} sec';
   }
 
-  bool get _started;
-  List<String> get _players;
-  Uri? get _song;
-  Map<String, int> get _playerAnswers;
-  Map<String, Duration> get _playerTimes;
+  bool get _started => widget.gameState.phase != GamePhase.lobby;
+  List<String> get _players => widget.gameState.players;
+  String? get _song => widget.gameState.questions.isEmpty
+      ? null
+      : widget
+          .gameState.questions[widget.gameState.currentQuestionIndex].songUrl;
+  Map<String, int> get _playerAnswers => widget.gameState.answers;
+  Map<String, Duration> get _playerTimes => widget.gameState.durations
+      .map((key, value) => MapEntry(key, Duration(seconds: value.round())));
   String? get _winner;
-  int get _correctAnswer;
+  int get _correctAnswer => widget.gameState.questions.isEmpty
+      ? -1
+      : widget.gameState.questions[widget.gameState.currentQuestionIndex]
+          .correctAnswer;
 
   @override
   Widget build(BuildContext context) {
