@@ -54,7 +54,7 @@ sealed class GameEvent {
 }
 
 class GetData extends GameEvent {
-  const GetData({required super.name}) : super(type: EventType.get);
+  const GetData() : super(type: EventType.get, name: '');
 }
 
 class StartGame extends GameEvent {
