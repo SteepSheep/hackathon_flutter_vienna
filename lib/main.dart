@@ -60,11 +60,13 @@ class BonsoirPageState extends State<BonsoirPage> {
     final b = _broadcast = BonsoirBroadcast(service: gameService);
     await b.ready;
     await b.start();
+    setState(() {});
   }
 
   void _stopBroadcasting() async {
     if (_broadcast case final b?) {
       await b.stop();
+      setState(() {});
     }
   }
 
@@ -95,6 +97,7 @@ class BonsoirPageState extends State<BonsoirPage> {
         case BonsoirDiscoveryEventType.unknown:
           debugPrint('Discovery: ${event.type}');
       }
+      setState(() {});
     });
     await _discovery.start();
   }
