@@ -20,6 +20,7 @@ class GameState extends Equatable {
 
   factory GameState.fromJson(Map<String, dynamic> json) => switch (json) {
         {
+          'phase': int phase,
           'players': List<dynamic> players,
           'answers': Map<String, dynamic> answers,
           'durations': Map<String, dynamic> durations,
@@ -27,6 +28,7 @@ class GameState extends Equatable {
           'questions': List<dynamic> questions,
         } =>
           GameState(
+            phase: GamePhase.values[phase],
             players: players.cast(),
             answers: answers.cast(),
             durations: durations.cast(),
@@ -51,7 +53,25 @@ class GameState extends Equatable {
   List<Object?> get props =>
       [phase, players, answers, durations, currentQuestionIndex, questions];
 
+  GameState copyWith({
+    GamePhase? phase,
+    List<String>? players,
+    Map<String, int>? answers,
+    Map<String, double>? durations,
+    int? currentQuestionIndex,
+    List<QuestionData>? questions,
+  }) =>
+      GameState(
+        phase: phase ?? this.phase,
+        players: players ?? this.players,
+        answers: answers ?? this.answers,
+        durations: durations ?? this.durations,
+        currentQuestionIndex: currentQuestionIndex ?? this.currentQuestionIndex,
+        questions: questions ?? this.questions,
+      );
+
   Map<String, dynamic> toJson() => {
+        'phase': phase.index,
         'players': players,
         'answers': answers,
         'durations': durations,
