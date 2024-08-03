@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
@@ -13,7 +15,13 @@ class GameLogic extends ValueNotifier<GameState> {
 
   Future<GameState> addEvent(GameEvent event) async {
     if (client case final c?) {
-      return await c.sendEvent(event);
+      final state = await c.sendEvent(event);
+      if (state != null) {
+        value = state;
+        return state;
+      } else {
+        return value;
+      }
     } else {
       switch (event) {
         case StartGame():
@@ -33,8 +41,18 @@ class GameClient {
 
   final _client = http.Client();
 
-  Future<GameState> sendEvent(GameEvent event) async {
-    await _client.post(Uri(scheme: 'http', host: host));
-    throw UnimplementedError();
+  Future<GameState?> sendEvent(GameEvent event, {int retries = 3}) async {
+    final response = await _client.post(Uri(scheme: 'http', host: host),
+        body: event.toJson());
+    if (response.statusCode < 300) {
+      final data = jsonDecode(response.body);
+      return GameState.fromJson(data);
+    } else if (response.statusCode < 500) {
+      return null;
+    } else if (retries > 0) {
+      return sendEvent(event, retries: retries - 1);
+    } else {
+      return null;
+    }
   }
 }
