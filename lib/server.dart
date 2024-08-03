@@ -121,10 +121,11 @@ class GameServerPageState extends State<GameServerPage> {
   Map<String, int> get _playerAnswers => widget.gameState.answers;
   Map<String, Duration> get _playerTimes => widget.gameState.timestamps
       .map((key, value) => MapEntry(key, Duration(seconds: value.round())));
-  String? get _winner => null;
+  String? get _winner => widget.gameState.winner;
   int get _correctAnswer => widget.gameState.questions.isEmpty
       ? -1
-      : 0; //widget.gameState.questions[widget.gameState.currentQuestionIndex] .correctAnswer;
+      : widget.gameState.questions[widget.gameState.currentQuestionIndex]
+          .correctAnswer;
 
   @override
   Widget build(BuildContext context) {
