@@ -23,13 +23,21 @@ class GameLogic extends ValueNotifier<GameState> {
         return value;
       }
     } else {
+      GameState newState;
       switch (event) {
         case StartGame():
+          newState = value.copyWith(phase: GamePhase.playing);
         case Join(name: final name):
+          newState = value.copyWith(players: List.of(value.players)..add(name));
         case Answer(name: final name, answer: final answer):
+          newState = value.copyWith(
+              answers: Map.of(value.answers)..addAll({name: answer}));
         case SubmitArtist(name: final name, artist: final artist):
-          throw UnimplementedError();
+          newState = value.copyWith();
       }
+
+      value = newState;
+      return value;
     }
   }
 }
