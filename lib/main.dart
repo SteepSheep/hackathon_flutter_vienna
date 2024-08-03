@@ -65,14 +65,5 @@ class _MyHomePageState extends State<MyHomePage> {
     var audioUrl = manifest.audioOnly.first.url;
     var audioUrlString = audioUrl.toString();
     player.play(UrlSource(audioUrlString));
-
-    /* var yt = YoutubeExplode();
-  var manifest = await yt.videos.streamsClient.getManifest(videoId);
-
-  // Get the audio-only stream URL
-  var audioStreamInfo = manifest.audioOnly.withHighestBitrate();
-  var audioStreamUrl = audioStreamInfo.url.toString();
-
-  yt.close(); */
   }
 }
