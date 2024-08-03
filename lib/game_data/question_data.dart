@@ -7,10 +7,23 @@ class QuestionData extends Equatable {
     required this.answers,
   });
 
+  QuestionData.fromJson(Map<String, dynamic> json)
+      : this(
+          songUrl: json['songUrl'],
+          correctAnswer: json['correctAnswer'],
+          answers: List.of(json['answers']),
+        );
+
   final String songUrl;
   final String correctAnswer;
   final List<String> answers;
 
   @override
   List<Object?> get props => [songUrl, correctAnswer, answers];
+
+  Map<String, dynamic> toJson() => {
+        'songUrl': songUrl,
+        'correctAnswer': correctAnswer,
+        'answers': answers,
+      };
 }

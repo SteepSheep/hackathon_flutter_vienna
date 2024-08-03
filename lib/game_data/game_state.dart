@@ -20,9 +20,19 @@ class GameState extends Equatable {
   final int currentQuestionIndex;
   final List<QuestionData> questions;
 
+  QuestionData get currentQuestion => questions[currentQuestionIndex];
+
   @override
   List<Object?> get props =>
       [players, answers, durations, currentQuestionIndex, questions];
 
-  Map<String, dynamic> toJson() => {};
+  Map<String, dynamic> toJson() => {
+        'players': players,
+        'answers': answers,
+        'durations': durations,
+        'currentQuestionIndex': currentQuestionIndex,
+        'questions': [
+          for (final question in questions) question.toJson(),
+        ],
+      };
 }
