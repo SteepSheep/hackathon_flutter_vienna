@@ -16,5 +16,5 @@ class GameState extends Equatable {
   final List<QuestionData> questions;
 
   @override
-  List<Object?> get props => [players, questions];
+  List<Object?> get props => [players, answers, durations, questions];
 }

@@ -31,7 +31,7 @@ sealed class GameEvent {
         return const StartGame();
       case {
           'type': EventType.sendAnswer,
-          'answer': String answer,
+          'answer': int answer,
         }:
         return Answer(answer);
       case _:
@@ -59,5 +59,5 @@ class SubmitArtist extends GameEvent {
 class Answer extends GameEvent {
   const Answer(this.answer) : super(type: EventType.sendAnswer);
 
-  final String answer;
+  final int answer;
 }
