@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
@@ -32,6 +33,7 @@ class GameServerPage extends StatefulWidget {
 
 class GameServerPageState extends State<GameServerPage> {
   BonsoirBroadcast? _broadcast;
+  late final player = AudioPlayer();
 
   @override
   void didUpdateWidget(covariant GameServerPage oldWidget) {
@@ -41,6 +43,12 @@ class GameServerPageState extends State<GameServerPage> {
         _stopBroadcasting();
       } else {
         _startBroadcasting();
+      }
+    }
+    if (oldWidget.gameState.song != widget.gameState.song) {
+      final song = widget.gameState.song;
+      if (song != null) {
+        _playSong(song);
       }
     }
   }
@@ -65,25 +73,92 @@ class GameServerPageState extends State<GameServerPage> {
     gameLogic.addEvent(const StartGame());
   }
 
+  void _playSong(Uri uri) {
+    player.play(UrlSource('uri'));
+  }
+
+  String _formatDuration(Duration? d) {
+    if (d == null) return '';
+    return '${d.inSeconds} sec';
+  }
+
+  bool get _started;
+  List<String> get _players;
+  Uri? get _song;
+  Map<String, int> get _playerAnswers;
+  Map<String, Duration> get _playerTimes;
+  String? get _winner;
+  int get _correctAnswer;
+
   @override
   Widget build(BuildContext context) {
-    const vspace = SizedBox(height: 30);
-
     final gameState = widget.gameState;
     final ThemeData(:textTheme, :colorScheme) = Theme.of(context);
 
-    if (gameState.started) {
-      return SizedBox();
+    const vspace = SizedBox(height: 30);
+    final titleStyle = textTheme.displayMedium;
+
+    if (_started) {
+      if (_song == null) {
+        return Column(
+          children: [
+            Text('Submit an artist!'),
+          ],
+        );
+      }
+      if (_winner != null) {
+        return Column(
+          children: [
+            Text(
+              '🎆 We have a winner!',
+              style: titleStyle,
+            ),
+            for (final player in _players)
+              ListTile(
+                leading: const Icon(Icons.account_circle),
+                title: Text(
+                  player,
+                  style: TextStyle(
+                    fontWeight:
+                        _winner == player ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
+                tileColor: _winner == player ? Colors.amber : null,
+                trailing: _playerAnswers[player] == _correctAnswer
+                    ? Text(_formatDuration(_playerTimes[player]))
+                    : null,
+              ),
+          ],
+        );
+      }
+      return Column(
+        children: [
+          Text(
+            '🎵 What\'s the song?',
+            style: titleStyle,
+          ),
+          vspace,
+          for (final player in _playerAnswers.keys)
+            ListTile(
+              leading: const Icon(Icons.account_circle),
+              title: Text(player),
+              trailing: const Icon(
+                Icons.check,
+                color: Colors.green,
+              ),
+            ),
+        ],
+      );
     }
 
     return Column(
       children: [
         Text(
           'Waiting for players...',
-          style: textTheme.displayMedium,
+          style: titleStyle,
         ),
         vspace,
-        for (final player in gameState.players)
+        for (final player in _players)
           ListTile(
             leading: const Icon(Icons.account_circle),
             title: Text(player),
