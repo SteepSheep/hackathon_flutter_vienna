@@ -45,6 +45,12 @@ class GameServerPageState extends State<GameServerPage> {
   late final player = AudioPlayer();
 
   @override
+  void initState() {
+    super.initState();
+    _startBroadcasting();
+  }
+
+  @override
   void didUpdateWidget(covariant GameServerPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.gameState.phase != widget.gameState.phase) {
