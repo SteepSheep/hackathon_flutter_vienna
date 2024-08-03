@@ -103,7 +103,7 @@ class GameServerPageState extends State<GameServerPage> {
       : widget
           .gameState.questions[widget.gameState.currentQuestionIndex].songUrl;
   Map<String, int> get _playerAnswers => widget.gameState.answers;
-  Map<String, Duration> get _playerTimes => widget.gameState.durations
+  Map<String, Duration> get _playerTimes => widget.gameState.timestamps
       .map((key, value) => MapEntry(key, Duration(seconds: value.round())));
   String? get _winner => null;
   int get _correctAnswer => widget.gameState.questions.isEmpty

@@ -13,7 +13,7 @@ class GameState extends Equatable {
     this.phase = GamePhase.lobby,
     this.players = const [],
     this.answers = const {},
-    this.durations = const {},
+    this.timestamps = const {},
     this.currentQuestionIndex = 0,
     this.questions = const [],
   });
@@ -23,7 +23,7 @@ class GameState extends Equatable {
           'phase': int phase,
           'players': List<dynamic> players,
           'answers': Map<String, dynamic> answers,
-          'durations': Map<String, dynamic> durations,
+          'timestamps': Map<String, dynamic> durations,
           'currentQuestionIndex': int currentQuestionIndex,
           'questions': List<dynamic> questions,
         } =>
@@ -31,7 +31,7 @@ class GameState extends Equatable {
             phase: GamePhase.values[phase],
             players: players.cast(),
             answers: answers.cast(),
-            durations: durations.cast(),
+            timestamps: durations.cast(),
             currentQuestionIndex: currentQuestionIndex,
             questions: [
               for (final question in questions) QuestionData.fromJson(question),
@@ -43,7 +43,7 @@ class GameState extends Equatable {
   final GamePhase phase;
   final List<String> players;
   final Map<String, int> answers;
-  final Map<String, double> durations;
+  final Map<String, int> timestamps;
   final int currentQuestionIndex;
   final List<QuestionData> questions;
 
@@ -60,7 +60,7 @@ class GameState extends Equatable {
     String? winner;
     for (final MapEntry(key: player, value: answer) in answers.entries) {
       if (answer == currentQuestion.correctAnswer &&
-          bestTime > (durations[player] ?? double.maxFinite)) {
+          bestTime > (timestamps[player] ?? double.maxFinite)) {
         winner = player;
       }
     }
@@ -69,13 +69,13 @@ class GameState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [phase, players, answers, durations, currentQuestionIndex, questions];
+      [phase, players, answers, timestamps, currentQuestionIndex, questions];
 
   GameState copyWith({
     GamePhase? phase,
     List<String>? players,
     Map<String, int>? answers,
-    Map<String, double>? durations,
+    Map<String, int>? timestamps,
     int? currentQuestionIndex,
     List<QuestionData>? questions,
   }) =>
@@ -83,7 +83,7 @@ class GameState extends Equatable {
         phase: phase ?? this.phase,
         players: players ?? this.players,
         answers: answers ?? this.answers,
-        durations: durations ?? this.durations,
+        timestamps: timestamps ?? this.timestamps,
         currentQuestionIndex: currentQuestionIndex ?? this.currentQuestionIndex,
         questions: questions ?? this.questions,
       );
@@ -92,7 +92,7 @@ class GameState extends Equatable {
         'phase': phase.index,
         'players': players,
         'answers': answers,
-        'durations': durations,
+        'timestamps': timestamps,
         'currentQuestionIndex': currentQuestionIndex,
         'questions': [
           for (final question in questions) question.toJson(),
