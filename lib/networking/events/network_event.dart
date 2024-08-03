@@ -8,3 +8,7 @@ sealed class NetworkEvent {
     }
   }
 }
+
+class StartGame extends NetworkEvent {
+  const StartGame();
+}

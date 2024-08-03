@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
 import 'package:hackathon_flutter_vienna/networking/results/event_result.dart';
 
-part 'game_state.dart';
+part 'game_data/game_state.dart';
 
 final gameLogic = GameLogic(GameState());
 
