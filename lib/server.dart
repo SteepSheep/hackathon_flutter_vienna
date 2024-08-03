@@ -192,7 +192,7 @@ class GameServerPageState extends State<GameServerPage> {
             title: Text(player),
           ),
         vspace,
-        if (gameState.players.length > 1)
+        if (gameState.players.isNotEmpty)
           ElevatedButton(
             onPressed: _startGame,
             child: const Text('Start Game'),
