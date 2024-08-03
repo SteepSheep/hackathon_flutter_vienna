@@ -20,7 +20,7 @@ Future<void> startServer() async {
     try {
       final jsonString = utf8.decode(responseBytes);
       print('Received json: $jsonString');
-      final decoded = json.decode(jsonString);
+      final decoded = json.decode(jsonString, reviver: _eventTypeReviver);
       final event = GameEvent.fromJson(decoded);
 
       final newState = gameLogic.addEvent(event);
@@ -30,4 +30,12 @@ Future<void> startServer() async {
       await request.response.close();
     }
   }
+}
+
+Object? _eventTypeReviver(Object? key, Object? value) {
+  if (key == 'type') {
+    assert(value is int, 'Expected type to be int');
+    return EventType.values[value as int];
+  }
+  return value;
 }

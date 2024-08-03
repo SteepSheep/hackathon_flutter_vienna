@@ -15,8 +15,25 @@ sealed class GameEvent {
 
   factory GameEvent.fromJson(Map<String, dynamic> json) {
     switch (json) {
-      case {'type': 'start'}:
+      case {
+          'type': EventType.join,
+          'name': String name,
+        }:
+        return Join(name);
+      case {
+          'type': EventType.sendArtist,
+          'artist': String artist,
+        }:
+        return SubmitArtist(artist);
+      case {
+          'type': EventType.start,
+        }:
         return const StartGame();
+      case {
+          'type': EventType.sendAnswer,
+          'answer': String answer,
+        }:
+        return Answer(answer);
       case _:
         throw ArgumentError('Not a valid $GameEvent: $json');
     }
@@ -37,4 +54,10 @@ class SubmitArtist extends GameEvent {
   const SubmitArtist(this.artist) : super(type: EventType.sendArtist);
 
   final String artist;
+}
+
+class Answer extends GameEvent {
+  const Answer(this.answer) : super(type: EventType.sendAnswer);
+
+  final String answer;
 }
