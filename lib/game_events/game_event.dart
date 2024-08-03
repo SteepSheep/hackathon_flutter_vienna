@@ -21,9 +21,9 @@ sealed class GameEvent {
     switch (json) {
       case {
           'type': EventType.get,
-          'name': String name,
+          'name': _,
         }:
-        return GetData(name: name);
+        return const GetData();
       case {
           'type': EventType.sendArtist,
           'name': String name,
