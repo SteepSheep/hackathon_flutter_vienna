@@ -49,8 +49,10 @@ class GameState extends Equatable {
 
   QuestionData get currentQuestion => questions[currentQuestionIndex];
 
+  bool get isFinished => answers.length == players.length;
+
   String? get winner {
-    if (answers.length != players.length) {
+    if (!isFinished) {
       return null;
     }
 
