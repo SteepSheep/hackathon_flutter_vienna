@@ -1,4 +1,6 @@
-part of '../game_logic.dart';
+import 'package:equatable/equatable.dart';
+
+part 'player_data.dart';
 
 class GameState extends Equatable {
   const GameState({
@@ -9,17 +11,4 @@ class GameState extends Equatable {
 
   @override
   List<Object?> get props => [players];
-}
-
-class PlayerData extends Equatable {
-  const PlayerData({
-    required this.name,
-    required this.points,
-  });
-
-  final String name;
-  final int points;
-
-  @override
-  List<Object?> get props => [name, points];
 }

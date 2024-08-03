@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:hackathon_flutter_vienna/game_data/game_event.dart';
+import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 
 Future<void> startServer() async {
