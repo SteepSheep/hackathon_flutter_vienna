@@ -49,6 +49,22 @@ class GameState extends Equatable {
 
   QuestionData get currentQuestion => questions[currentQuestionIndex];
 
+  String? get winner {
+    if (answers.length != players.length) {
+      return null;
+    }
+
+    var bestTime = double.maxFinite;
+    String? winner;
+    for (final MapEntry(key: player, value: answer) in answers.entries) {
+      if (answer == currentQuestion.correctAnswer &&
+          bestTime > (durations[player] ?? double.maxFinite)) {
+        winner = player;
+      }
+    }
+    return winner;
+  }
+
   @override
   List<Object?> get props =>
       [phase, players, answers, durations, currentQuestionIndex, questions];
