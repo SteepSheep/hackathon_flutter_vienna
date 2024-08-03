@@ -115,24 +115,26 @@ class BonsoirPageState extends State<BonsoirPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (_broadcast == null)
-          ElevatedButton(
-            onPressed: _stopBroadcasting,
-            child: const Text('Stop broadcasting'),
-          )
-        else
-          ElevatedButton(
-            onPressed: _startBroadcasting,
-            child: const Text('Start broadcasting'),
-          ),
-        if (_discoverySub != null) const Text('Discovering...'),
-        if (_peers.isEmpty)
-          const Text('No peers found')
-        else
-          for (final peer in _peers.entries) Text(peer.key)
-      ],
+    return SafeArea(
+      child: Column(
+        children: [
+          if (_broadcast == null)
+            ElevatedButton(
+              onPressed: _stopBroadcasting,
+              child: const Text('Stop broadcasting'),
+            )
+          else
+            ElevatedButton(
+              onPressed: _startBroadcasting,
+              child: const Text('Start broadcasting'),
+            ),
+          if (_discoverySub != null) const Text('Discovering...'),
+          if (_peers.isEmpty)
+            const Text('No peers found')
+          else
+            for (final peer in _peers.entries) Text(peer.key)
+        ],
+      ),
     );
   }
 }
