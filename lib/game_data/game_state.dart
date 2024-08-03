@@ -23,4 +23,6 @@ class GameState extends Equatable {
   @override
   List<Object?> get props =>
       [players, answers, durations, currentQuestionIndex, questions];
+
+  Map<String, dynamic> toJson() => {};
 }
