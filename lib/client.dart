@@ -28,7 +28,6 @@ class GameClientPage extends StatefulWidget {
 class GameClientPageState extends State<GameClientPage> {
   final _discovery = BonsoirDiscovery(type: gameService.type);
   StreamSubscription<BonsoirDiscoveryEvent>? _discoverySub;
-  ResolvedBonsoirService? _service;
 
   @override
   void initState() {
@@ -49,7 +48,6 @@ class GameClientPageState extends State<GameClientPage> {
           }
         case BonsoirDiscoveryEventType.discoveryServiceResolved:
           if (event.service case final ResolvedBonsoirService service?) {
-            _service = service;
             gameLogic.client = GameClient(host: service.host!);
           } else {
             debugPrint('${event.type} with missing service!!!');
