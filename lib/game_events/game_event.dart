@@ -38,6 +38,8 @@ sealed class GameEvent {
         throw ArgumentError('Not a valid $GameEvent: $json');
     }
   }
+
+  Map<String, dynamic> toJson();
 }
 
 class Join extends GameEvent {
