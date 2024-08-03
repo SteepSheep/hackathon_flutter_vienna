@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-part 'player_data.dart';
 part 'question_data.dart';
 
 class GameState extends Equatable {
@@ -9,7 +8,9 @@ class GameState extends Equatable {
     this.questions = const [],
   });
 
-  final List<PlayerData> players;
+  final List<String> players;
+  final Map<String, int> answers;
+  final Map<String, double> durations;
   final List<QuestionData> questions;
 
   @override
