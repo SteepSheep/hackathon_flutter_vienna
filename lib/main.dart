@@ -120,13 +120,13 @@ class BonsoirPageState extends State<BonsoirPage> {
         children: [
           if (_broadcast == null)
             ElevatedButton(
-              onPressed: _stopBroadcasting,
-              child: const Text('Stop broadcasting'),
+              onPressed: _startBroadcasting,
+              child: const Text('Start broadcasting'),
             )
           else
             ElevatedButton(
-              onPressed: _startBroadcasting,
-              child: const Text('Start broadcasting'),
+              onPressed: _stopBroadcasting,
+              child: const Text('Stop broadcasting'),
             ),
           if (_discoverySub != null) const Text('Discovering...'),
           if (_peers.isEmpty)
