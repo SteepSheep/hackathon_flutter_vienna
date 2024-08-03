@@ -15,12 +15,20 @@ final gameService = BonsoirService(
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(Scaffold(
-    body: ValueListenableBuilder(
-      valueListenable: gameLogic,
-      builder: (context, state, _) => GameServerPage(gameState: state),
+  runApp(
+    MaterialApp(
+      home: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: ValueListenableBuilder(
+              valueListenable: gameLogic,
+              builder: (context, state, _) => GameServerPage(gameState: state),
+            ),
+          ),
+        ),
+      ),
     ),
-  ));
+  );
 }
 
 class GameServerPage extends StatefulWidget {
