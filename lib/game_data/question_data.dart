@@ -40,6 +40,7 @@ class QuestionData extends Equatable {
 
   Map<String, dynamic> toJson() => {
         'songUrl': songUrl,
+        'songPositionSeconds': songPositionSeconds,
         'correctAnswer': correctAnswer,
         'answers': answers,
       };
