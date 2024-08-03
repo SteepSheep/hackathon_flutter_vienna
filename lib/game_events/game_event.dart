@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 enum EventType {
-  join,
+  get,
   sendArtist,
   start,
   sendAnswer,
@@ -20,10 +20,10 @@ sealed class GameEvent {
   factory GameEvent.fromJson(Map<String, dynamic> json) {
     switch (json) {
       case {
-          'type': EventType.join,
+          'type': EventType.get,
           'name': String name,
         }:
-        return Join(name: name);
+        return GetData(name: name);
       case {
           'type': EventType.sendArtist,
           'name': String name,
@@ -53,9 +53,8 @@ sealed class GameEvent {
       };
 }
 
-@Deprecated('Join via submit artist instead')
-class Join extends GameEvent {
-  const Join({required super.name}) : super(type: EventType.join);
+class GetData extends GameEvent {
+  const GetData({required super.name}) : super(type: EventType.get);
 }
 
 class StartGame extends GameEvent {

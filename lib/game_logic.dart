@@ -28,10 +28,8 @@ class GameLogic extends ValueNotifier<GameState> {
       switch (event) {
         case StartGame():
           newState = value.copyWith(phase: GamePhase.playing);
-        case Join(name: final name):
-          newState = value.copyWith(
-            players: List.of(value.players)..add(name),
-          );
+        case GetData(name: final name):
+          newState = value;
         case Answer(name: final name, answer: final answer):
           newState = value.copyWith(
               answers: Map.of(value.answers)
