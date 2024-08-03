@@ -11,8 +11,25 @@ class GameState extends Equatable {
     this.questions = const [],
   });
 
-  factory GameState.fromJson(Map<String, dynamic> json) =>
-      throw UnimplementedError();
+  factory GameState.fromJson(Map<String, dynamic> json) => switch (json) {
+        {
+          'players': List<dynamic> players,
+          'answers': Map<String, dynamic> answers,
+          'durations': Map<String, dynamic> durations,
+          'currentQuestionIndex': int currentQuestionIndex,
+          'questions': List<dynamic> questions,
+        } =>
+          GameState(
+            players: players.cast(),
+            answers: answers.cast(),
+            durations: durations.cast(),
+            currentQuestionIndex: currentQuestionIndex,
+            questions: [
+              for (final question in questions) QuestionData.fromJson(question),
+            ],
+          ),
+        _ => throw ArgumentError(),
+      };
 
   final List<String> players;
   final Map<String, int> answers;
