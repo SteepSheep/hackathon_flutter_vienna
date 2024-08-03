@@ -33,7 +33,7 @@ class GameLogic extends ValueNotifier<GameState> {
           newState = value.copyWith(
               answers: Map.of(value.answers)..addAll({name: answer}));
         case SubmitArtist(name: final name, artist: final artist):
-          newState = value.copyWith(questions: [QuestionData.fake()]);
+          newState = value.copyWith(questions: [const QuestionData.fake()]);
       }
 
       value = newState;
