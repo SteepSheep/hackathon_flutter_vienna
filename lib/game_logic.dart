@@ -1,10 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
 import 'package:hackathon_flutter_vienna/networking/results/event_result.dart';
 
-final gameState = GameState();
+part 'game_state.dart';
 
-class GameState {
-  GameState();
+class GameLogic extends ValueNotifier<GameState> {
+  GameLogic(super.value);
 
   EventResult addEvent(NetworkEvent event) {
     switch (event) {

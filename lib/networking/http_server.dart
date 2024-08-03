@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:hackathon_flutter_vienna/game_logic.dart';
 import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
-import 'package:hackathon_flutter_vienna/networking/game_state.dart';
 
 Future<void> startServer() async {
   final httpServer = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
