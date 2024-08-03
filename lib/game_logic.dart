@@ -4,6 +4,8 @@ import 'package:hackathon_flutter_vienna/networking/results/event_result.dart';
 
 part 'game_state.dart';
 
+final gameLogic = GameLogic(GameState());
+
 class GameLogic extends ValueNotifier<GameState> {
   GameLogic(super.value);
 
