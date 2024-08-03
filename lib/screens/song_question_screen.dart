@@ -28,13 +28,17 @@ class _SongQuestionScreenState extends State<SongQuestionScreen> {
             builder: (context, value, child) {
               if (value.questions.isNotEmpty) {
                 return ListView.builder(
-                  itemCount: value.questions[value.currentQuestionIndex].answers.length,
+                  shrinkWrap: true,
+                  itemCount: value
+                      .questions[value.currentQuestionIndex].answers.length,
                   itemBuilder: (context, index) {
-                    String answer = value.questions[value.currentQuestionIndex].answers[index];
+                    String answer = value
+                        .questions[value.currentQuestionIndex].answers[index];
                     return AnswerWidget(
                         answer: answer,
                         onSelected: () {
-                          gameLogic.addEvent(Answer(answer: index, name: 'value'));
+                          gameLogic
+                              .addEvent(Answer(answer: index, name: 'value'));
                         });
                   },
                 );

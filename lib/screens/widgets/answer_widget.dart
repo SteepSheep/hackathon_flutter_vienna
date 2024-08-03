@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AnswerWidget extends StatelessWidget {
   final String answer;
-  final Function onSelected;
+  final void Function() onSelected;
   const AnswerWidget({
     super.key,
     required this.answer,
@@ -14,7 +14,7 @@ class AnswerWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onSelected(),
+        onPressed: onSelected,
         style: const ButtonStyle(),
         child: Text(answer),
       ),
