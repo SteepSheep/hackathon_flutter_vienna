@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
 import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 
@@ -11,28 +12,30 @@ class ChooseArtistScreen extends StatelessWidget {
     final TextEditingController artistController = TextEditingController();
     final FocusNode nameFocusNode = FocusNode();
     final FocusNode artistFocusNode = FocusNode();
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Enter your name',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            TextField(
-              controller: nameController,
-              focusNode: nameFocusNode,
-              decoration: const InputDecoration(
-                hintText: 'Enter your name'
+            if (gameLogic.value.phase != GamePhase.artists) ...[
+              const Text(
+                'Enter your name',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              onChanged: (value) => nameController.text = value,
-              onEditingComplete: () {
-                artistFocusNode.requestFocus();
-              },
-            ),
+              TextField(
+                controller: nameController,
+                focusNode: nameFocusNode,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your name'
+                ),
+                onChanged: (value) => nameController.text = value,
+                onEditingComplete: () {
+                  artistFocusNode.requestFocus();
+                },
+              ),
+            ],
+            
             const Text(
               'Choose an artist',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -53,7 +56,6 @@ class ChooseArtistScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
