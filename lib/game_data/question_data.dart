@@ -11,7 +11,7 @@ class QuestionData extends Equatable {
       : this(
           songUrl: json['songUrl'],
           correctAnswer: json['correctAnswer'],
-          answers: List.of(json['answers']),
+          answers: json['answers'].cast(),
         );
 
   final String songUrl;
