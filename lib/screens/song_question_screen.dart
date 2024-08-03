@@ -42,7 +42,7 @@ class _SongQuestionScreenState extends State<SongQuestionScreen> {
                       return AnswerWidget(
                         answer: answer, 
                         onSelected: () {
-                          gameLogic.addEvent(Answer(index));
+                          gameLogic.addEvent(Answer(answer: index, name: value));
                         }
                       );
                     },
