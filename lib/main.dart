@@ -66,6 +66,7 @@ class BonsoirPageState extends State<BonsoirPage> {
   void _stopBroadcasting() async {
     if (_broadcast case final b?) {
       await b.stop();
+      _broadcast = null;
       setState(() {});
     }
   }
