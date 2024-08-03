@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
+import 'package:http/http.dart' as http;
 
 import 'game_data/game_state.dart';
 
@@ -25,9 +25,9 @@ class GameLogic extends ValueNotifier<GameState> {
     } else {
       switch (event) {
         case StartGame():
-        case Join():
-        case Answer():
-        case SubmitArtist():
+        case Join(name: final name):
+        case Answer(name: final name, answer: final answer):
+        case SubmitArtist(name: final name, artist: final artist):
           throw UnimplementedError();
       }
     }
