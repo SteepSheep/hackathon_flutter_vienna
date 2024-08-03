@@ -1,6 +1,19 @@
 part of 'game_state.dart';
 
 class QuestionData extends Equatable {
+  const QuestionData.fake()
+      : this(
+          songUrl: 'https://youtu.be/9-Qkx9TAM10?si=hXVS6lW-8mzd17CW',
+          songPositionSeconds: 1,
+          correctAnswer: 2,
+          answers: const [
+            'First answer',
+            'second answer',
+            'third answer',
+            'fourth answer',
+          ],
+        );
+
   const QuestionData({
     required this.songUrl,
     this.songPositionSeconds = 0,
