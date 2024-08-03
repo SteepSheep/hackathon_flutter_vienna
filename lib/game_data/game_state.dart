@@ -2,8 +2,15 @@ import 'package:equatable/equatable.dart';
 
 part 'question_data.dart';
 
+enum GamePhase {
+  lobby,
+  playing,
+  artists,
+}
+
 class GameState extends Equatable {
   const GameState({
+    this.phase = GamePhase.lobby,
     this.players = const [],
     this.answers = const {},
     this.durations = const {},
@@ -31,6 +38,7 @@ class GameState extends Equatable {
         _ => throw ArgumentError(),
       };
 
+  final GamePhase phase;
   final List<String> players;
   final Map<String, int> answers;
   final Map<String, double> durations;
@@ -41,7 +49,7 @@ class GameState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [players, answers, durations, currentQuestionIndex, questions];
+      [phase, players, answers, durations, currentQuestionIndex, questions];
 
   Map<String, dynamic> toJson() => {
         'players': players,

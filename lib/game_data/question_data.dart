@@ -3,6 +3,7 @@ part of 'game_state.dart';
 class QuestionData extends Equatable {
   const QuestionData({
     required this.songUrl,
+    this.songPositionSeconds = 0,
     required this.correctAnswer,
     required this.answers,
   });
@@ -15,11 +16,13 @@ class QuestionData extends Equatable {
         );
 
   final String songUrl;
+  final int songPositionSeconds;
   final String correctAnswer;
   final List<String> answers;
 
   @override
-  List<Object?> get props => [songUrl, correctAnswer, answers];
+  List<Object?> get props =>
+      [songUrl, songPositionSeconds, correctAnswer, answers];
 
   Map<String, dynamic> toJson() => {
         'songUrl': songUrl,

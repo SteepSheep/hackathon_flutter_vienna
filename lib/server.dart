@@ -2,8 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
+import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
-import 'package:hackathon_flutter_vienna/networking/events/network_event.dart';
 
 const gameName = 'THE game!';
 
@@ -39,17 +39,29 @@ class GameServerPageState extends State<GameServerPage> {
   @override
   void didUpdateWidget(covariant GameServerPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.gameState.started != widget.gameState.started) {
-      if (widget.gameState.started) {
+    if (oldWidget.gameState.phase != widget.gameState.phase) {
+      if (widget.gameState.phase != GamePhase.lobby) {
         _stopBroadcasting();
       } else {
         _startBroadcasting();
       }
     }
-    if (oldWidget.gameState.song != widget.gameState.song) {
-      final song = widget.gameState.song;
-      if (song != null) {
-        _playSong(song);
+
+    if (widget.gameState.questions.isNotEmpty) {
+      final song = widget
+          .gameState.questions[widget.gameState.currentQuestionIndex].songUrl;
+      if (oldWidget.gameState.questions.isEmpty ||
+          oldWidget
+                  .gameState
+                  .questions[oldWidget.gameState.currentQuestionIndex]
+                  .songUrl !=
+              song) {
+        if (widget.gameState.phase == GamePhase.playing) {
+          _playSong(
+              song,
+              widget.gameState.questions[widget.gameState.currentQuestionIndex]
+                  .songPositionSeconds);
+        }
       }
     }
   }
@@ -74,8 +86,9 @@ class GameServerPageState extends State<GameServerPage> {
     gameLogic.addEvent(const StartGame());
   }
 
-  void _playSong(Uri uri) {
-    player.play(UrlSource('uri'));
+  void _playSong(String uri, int positionSeconds) async {
+    await player.seek(Duration(seconds: positionSeconds));
+    await player.play(UrlSource(uri));
   }
 
   String _formatDuration(Duration? d) {
@@ -101,7 +114,7 @@ class GameServerPageState extends State<GameServerPage> {
 
     if (_started) {
       if (_song == null) {
-        return Column(
+        return const Column(
           children: [
             Text('Submit an artist!'),
           ],
@@ -168,7 +181,7 @@ class GameServerPageState extends State<GameServerPage> {
         if (gameState.players.length > 1)
           ElevatedButton(
             onPressed: _startGame,
-            child: Text('Start Game'),
+            child: const Text('Start Game'),
           ),
       ],
     );
