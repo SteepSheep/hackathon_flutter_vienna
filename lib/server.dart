@@ -83,7 +83,7 @@ class GameServerPageState extends State<GameServerPage> {
   }
 
   void _startGame() {
-    gameLogic.addEvent(const StartGame());
+    gameLogic.addEvent(const StartGame(name: ''));
   }
 
   void _playSong(String uri, int positionSeconds) async {
@@ -105,11 +105,10 @@ class GameServerPageState extends State<GameServerPage> {
   Map<String, int> get _playerAnswers => widget.gameState.answers;
   Map<String, Duration> get _playerTimes => widget.gameState.durations
       .map((key, value) => MapEntry(key, Duration(seconds: value.round())));
-  String? get _winner;
+  String? get _winner => null;
   int get _correctAnswer => widget.gameState.questions.isEmpty
       ? -1
-      : widget.gameState.questions[widget.gameState.currentQuestionIndex]
-          .correctAnswer;
+      : 0; //widget.gameState.questions[widget.gameState.currentQuestionIndex] .correctAnswer;
 
   @override
   Widget build(BuildContext context) {
