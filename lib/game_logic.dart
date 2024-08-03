@@ -53,7 +53,7 @@ class GameClient {
 
   Future<GameState?> sendEvent(GameEvent event, {int retries = 3}) async {
     final response = await _client.post(Uri(scheme: 'http', host: host),
-        body: event.toJson());
+        body: jsonEncode(event.toJson()));
     if (response.statusCode < 300) {
       final data = jsonDecode(response.body);
       return GameState.fromJson(data);
