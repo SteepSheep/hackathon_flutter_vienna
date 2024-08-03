@@ -10,16 +10,20 @@ import 'package:hackathon_flutter_vienna/server.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(Scaffold(
-    body: ValueListenableBuilder(
-      valueListenable: gameLogic,
-      builder: (context, state, _) => SafeArea(
-        child: GameClientPage(
-          gameState: state,
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: ValueListenableBuilder(
+          valueListenable: gameLogic,
+          builder: (context, state, _) => SafeArea(
+            child: GameClientPage(
+              gameState: state,
+            ),
+          ),
         ),
       ),
     ),
-  ));
+  );
 }
 
 class GameClientPage extends StatefulWidget {
