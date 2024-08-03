@@ -47,6 +47,7 @@ class Join extends GameEvent {
 
   final String name;
 
+  @override
   Map<String, dynamic> toJson() => {
         'type': type.index,
         'name': name,
@@ -56,6 +57,7 @@ class Join extends GameEvent {
 class StartGame extends GameEvent {
   const StartGame() : super(type: EventType.start);
 
+  @override
   Map<String, dynamic> toJson() => {'type': type.index};
 }
 
@@ -64,6 +66,7 @@ class SubmitArtist extends GameEvent {
 
   final String artist;
 
+  @override
   Map<String, dynamic> toJson() => {
         'type': type.index,
         'artist': artist,
@@ -75,6 +78,7 @@ class Answer extends GameEvent {
 
   final int answer;
 
+  @override
   Map<String, dynamic> toJson() => {
         'type': type.index,
         'answer': answer,
