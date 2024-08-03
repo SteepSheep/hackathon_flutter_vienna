@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_flutter_vienna/game_data/game_state.dart';
+import 'package:hackathon_flutter_vienna/game_events/game_event.dart';
 import 'package:hackathon_flutter_vienna/game_logic.dart';
 import 'package:hackathon_flutter_vienna/screens/choose_artist_screen.dart';
 import 'package:hackathon_flutter_vienna/screens/song_question_screen.dart';
@@ -38,6 +39,7 @@ class GameClientPage extends StatefulWidget {
 class GameClientPageState extends State<GameClientPage> {
   final _discovery = BonsoirDiscovery(type: gameService.type);
   StreamSubscription<BonsoirDiscoveryEvent>? _discoverySub;
+  Timer? _poll;
 
   @override
   void initState() {
@@ -81,6 +83,8 @@ class GameClientPageState extends State<GameClientPage> {
         child: Text('Looking for server...'),
       );
     }
+    _poll ??= Timer.periodic(
+        const Duration(seconds: 1), (_) => gameLogic.addEvent(const GetData()));
     return ValueListenableBuilder(
       valueListenable: gameLogic,
       builder: (context, state, _) {
